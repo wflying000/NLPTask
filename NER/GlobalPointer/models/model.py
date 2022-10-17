@@ -25,7 +25,10 @@ class GlobalPointer(nn.Module):
         embeddings = embeddings.to(self.device)
         return embeddings
         
-    def forward(self, input_ids, attention_mask, token_type_ids):
+    def forward(self, inputs):
+        input_ids = inputs["input_ids"]
+        attention_mask = inputs["attention_mask"]
+        token_type_ids = inputs["token_type_ids"]
         self.device = input_ids.device
         
         context_outputs = self.encoder(input_ids, attention_mask, token_type_ids)

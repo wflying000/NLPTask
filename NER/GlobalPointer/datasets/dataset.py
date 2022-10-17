@@ -17,8 +17,9 @@ def collate_fn_for_clue_ner(data: List[Dict], tokenizer, entity_type2id, max_len
     text_list = [x["text"] for x in data] # List[str]
     tokenized_text = tokenizer(text_list, truncation=True, padding=True, 
                                max_length=max_length, add_special_tokens=True,
-                               return_tensors="pt")
-    
+                               return_offsets_mapping=True, return_tensors="pt")
+    tokenized_text["text"] = text_list
+
     if inference:
         return tokenized_text
 
